@@ -23,7 +23,6 @@ class CustomText(models.Model):
 
 class HomePage(models.Model):
     body = models.TextField()
-    test = models.BigIntegerField(null=True, blank=True,)
 
     @property
     def api(self):
@@ -32,3 +31,19 @@ class HomePage(models.Model):
     @property
     def field(self):
         return "body"
+
+
+class Message(models.Model):
+    "Generated Model"
+    match = models.ForeignKey(
+        "dating.Match", on_delete=models.CASCADE, related_name="message_match",
+    )
+    slug = models.SlugField(max_length=50,)
+    created = models.DateTimeField(auto_now_add=True,)
+    inbox = models.ForeignKey(
+        "dating.Inbox",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="message_inbox",
+    )
